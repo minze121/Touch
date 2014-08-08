@@ -64,8 +64,7 @@ static struct usbtouch_info pixcir_type = {
 static void pixcir_urbmsg_handle(struct pix_usbtouch_dev *pdev,
                                  unsigned char *pkt, int len)
 {
-//      int z=50;
-      int z=30;
+      int z=50;
       int w=15;
       int i;
       int touch_active=0;
@@ -103,34 +102,113 @@ static void pixcir_urbmsg_handle(struct pix_usbtouch_dev *pdev,
 		touch_active++;
 	cn_p += 6;
       	}
+
+	  int j = 0;
     
-	  
-      if (touch_active) {
-      		input_report_key(pdev->input, BTN_TOUCH, 1);    
-      		for (i=0 ;i<MUTITOUCH_MAX_FINGER_NUM ;i++)
+/*
+ (07)  (00)  (27)  (01)  (4d)  (00)
+ (07)  (04)  (8d)  (00)  (28)  (00)
+ (07)  (01)  (b7)  (01)  (27)  (00)
+ (04)  (02)  (00)  (00)  (df)  (01)
+ (04)  (03)  (00)  (00)  (df)  (01)
+ (05)
+i : 0 pixcir_urbmsg_handle:: input id[0] x[0]=505 y[0]=403
+i : 1 pixcir_urbmsg_handle:: input id[4] x[4]=659 y[4]=440
+i : 2 pixcir_urbmsg_handle:: input id[1] x[1]=361 y[1]=441
+i : 4 pixcir_urbmsg_handle:: input id[3] x[3]=505 y[3]=403
+*/
+#if 1
+//	  if (touch_active > 1 && touch_active < 5)
+	  if ((touch_active == 2) || (touch_active == 3))
+	  {
+		  pdev->multouch_event[touch_active].touch_statue = 0x07;
+		  pdev->multouch_event[touch_active].x	= pdev->multouch_event[0].x;
+		  pdev->multouch_event[touch_active].y = pdev->multouch_event[0].y;
+		  //pdev->multouch_event[0].x = 0;
+		  //pdev->multouch_event[0].y = 0;
+		  pix_dbg("\n\n		Change 2 3...... \n\n");
+	  }
+#endif
+      if (touch_active)
+      {
+      		input_report_key(pdev->input, BTN_TOUCH, 1);
+
+				for (i=0 ;i<MUTITOUCH_MAX_FINGER_NUM ;i++)
+				{
+				  if (pdev->multouch_event[i].touch_statue==0x07 && (touch_active ==1)){
+					  	 j=i;
+						input_report_abs(pdev->input, ABS_MT_TOUCH_MAJOR, z);
+						input_report_abs(pdev->input, ABS_MT_WIDTH_MAJOR, w);
+#if 1
+						input_report_abs(pdev->input, ABS_MT_POSITION_X, 0);
+						input_report_abs(pdev->input, ABS_MT_POSITION_Y, 1);
+#else
+						input_report_abs(pdev->input, ABS_MT_POSITION_X, pdev->multouch_event[i].x);
+						input_report_abs(pdev->input, ABS_MT_POSITION_Y, pdev->multouch_event[i].y);
+#endif
+						input_report_abs(pdev->input,ABS_MT_TRACKING_ID,pdev->multouch_event[i].finger_id);
+						pix_dbg("%s:: input id[%d] x[%d]=%2d y[%d]=%2d\n",
+						__func__,pdev->multouch_event[i].finger_id,
+						pdev->multouch_event[i].finger_id,pdev->multouch_event[i].x,
+						pdev->multouch_event[i].finger_id,pdev->multouch_event[i].y);
+
+						input_mt_sync(pdev->input);
+				 }else	if (pdev->multouch_event[i].touch_statue==0x07){
+					 input_report_abs(pdev->input, ABS_MT_TOUCH_MAJOR, z);
+						 input_report_abs(pdev->input, ABS_MT_WIDTH_MAJOR, w);
+						input_report_abs(pdev->input, ABS_MT_POSITION_X, pdev->multouch_event[i].x);
+						input_report_abs(pdev->input, ABS_MT_POSITION_Y, pdev->multouch_event[i].y);
+						input_report_abs(pdev->input,ABS_MT_TRACKING_ID,pdev->multouch_event[i].finger_id);
+					pix_dbg("i : %d %s:: input id[%d] x[%d]=%2d y[%d]=%2d\n",
+					i,__func__,pdev->multouch_event[i].finger_id,
+					 pdev->multouch_event[i].finger_id,pdev->multouch_event[i].x,
+					 pdev->multouch_event[i].finger_id,pdev->multouch_event[i].y);
+
+						input_mt_sync(pdev->input);
+				 }else
+					 continue;
+
+				}
+				pix_dbg("\n");
+	      
+		}else
+		{
+			input_report_key(pdev->input, BTN_TOUCH, 0);
+			input_report_abs(pdev->input, ABS_MT_TOUCH_MAJOR, 0);
+			input_report_abs(pdev->input, ABS_MT_WIDTH_MAJOR, 0);
+			input_mt_sync(pdev->input);
+		}
+
+#if 1
+      if (touch_active == 1) {
+
+    	   	if (j==0)
+    	   		j=1;
+    	   	else
+    	   		j--;
+
+      		for (i=0 ;i<1 ;i++)
       		{
-		  if (pdev->multouch_event[i].touch_statue==0x07){  
-		         input_report_abs(pdev->input, ABS_MT_TOUCH_MAJOR, z);
-      		         input_report_abs(pdev->input, ABS_MT_WIDTH_MAJOR, w);
-                   	input_report_abs(pdev->input, ABS_MT_POSITION_X, pdev->multouch_event[i].x);
-                   	input_report_abs(pdev->input, ABS_MT_POSITION_Y, pdev->multouch_event[i].y);
-                   	input_report_abs(pdev->input,ABS_MT_TRACKING_ID,pdev->multouch_event[i].finger_id);
-		      	pix_dbg("%s:: input id[%d] x[%d]=%2d y[%d]=%2d",
-			  	__func__,pdev->multouch_event[i].finger_id,
-			  	 pdev->multouch_event[i].finger_id,pdev->multouch_event[i].x,
-			  	 pdev->multouch_event[i].finger_id,pdev->multouch_event[i].y);
-	      
-	               	input_mt_sync(pdev->input);				   
-		 }else          
-                      continue;
-	        }  pix_dbg("\n");
-	      
-      	}else {
-         	 input_report_key(pdev->input, BTN_TOUCH, 0);
-   		 input_report_abs(pdev->input, ABS_MT_TOUCH_MAJOR, 0);
-      		 input_report_abs(pdev->input, ABS_MT_WIDTH_MAJOR, 0); 
-		 input_mt_sync(pdev->input);	 
-      		}
+				if (pdev->multouch_event[i].touch_statue==0x07)
+				{
+					input_report_abs(pdev->input, ABS_MT_TOUCH_MAJOR, z);
+					input_report_abs(pdev->input, ABS_MT_WIDTH_MAJOR, w);
+					input_report_abs(pdev->input, ABS_MT_POSITION_X, pdev->multouch_event[i].x);
+					input_report_abs(pdev->input, ABS_MT_POSITION_Y, pdev->multouch_event[i].y);
+					input_report_abs(pdev->input,ABS_MT_TRACKING_ID,pdev->multouch_event[j].finger_id);
+					pix_dbg("%s:: input id[%d] x[%d]=%2d y[%d]=%2d\n",
+					__func__,pdev->multouch_event[j].finger_id,
+					pdev->multouch_event[j].finger_id,pdev->multouch_event[i].x,
+					pdev->multouch_event[j].finger_id,pdev->multouch_event[i].y);
+
+					input_mt_sync(pdev->input);
+				}else
+					continue;
+			}
+
+      		pix_dbg("\n");
+      	}
+#endif
       input_sync(pdev->input);
       memset(pdev->multouch_event,0,sizeof(pdev->multouch_event));
       touch_active=0;  

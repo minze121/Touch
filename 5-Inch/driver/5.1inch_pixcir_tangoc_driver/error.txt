@@ -1,0 +1,102 @@
+In file included from include/linux/module.h:17:0,
+                 from /home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:36:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.h: In function ‘__check_conv_xy’:
+include/linux/moduleparam.h:338:45: warning: return from incompatible pointer type [enabled by default]
+  static inline type *__check_##name(void) { return(p); }
+                                             ^
+include/linux/moduleparam.h:384:35: note: in expansion of macro ‘__param_check’
+ #define param_check_bool(name, p) __param_check(name, p, bool)
+                                   ^
+include/linux/moduleparam.h:116:2: note: in expansion of macro ‘param_check_bool’
+  param_check_##type(name, &(value));       \
+  ^
+include/linux/moduleparam.h:102:2: note: in expansion of macro ‘module_param_named’
+  module_param_named(name, name, type, perm)
+  ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.h:86:1: note: in expansion of macro ‘module_param’
+ module_param(conv_xy, bool, 0644);
+ ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c: In function ‘pixcir_urbmsg_handle’:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:105:2: error: expected ‘;’ before ‘cn_p’
+  cn_p += 6;
+  ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c: In function ‘pixcir_command_ctrol’:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:287:36: warning: argument to ‘sizeof’ in ‘memcpy’ call is the same pointer type ‘unsigned char *’ as the destination; expected ‘unsigned char’ or an explicit length [-Wsizeof-pointer-memaccess]
+   memcpy(debug_buf, command, sizeof(command));
+                                    ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c: In function ‘pixcir_hid_debug_store’:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:332:2: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+  int ret = -1;
+  ^
+In file included from /home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:32:0:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c: At top level:
+include/linux/device.h:427:9: warning: initialization from incompatible pointer type [enabled by default]
+  struct class_attribute class_attr_##_name = __ATTR(_name, _mode, _show, _store)
+         ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:395:8: note: in expansion of macro ‘CLASS_ATTR’
+ static CLASS_ATTR(pixcir_hid_debug, S_IRUGO|S_IWUGO, pixcir_hid_debug_show, pixcir_hid_debug_store);
+        ^
+include/linux/device.h:427:9: warning: (near initialization for ‘class_attr_pixcir_hid_debug.show’) [enabled by default]
+  struct class_attribute class_attr_##_name = __ATTR(_name, _mode, _show, _store)
+         ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:395:8: note: in expansion of macro ‘CLASS_ATTR’
+ static CLASS_ATTR(pixcir_hid_debug, S_IRUGO|S_IWUGO, pixcir_hid_debug_show, pixcir_hid_debug_store);
+        ^
+include/linux/device.h:427:9: warning: initialization from incompatible pointer type [enabled by default]
+  struct class_attribute class_attr_##_name = __ATTR(_name, _mode, _show, _store)
+         ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:395:8: note: in expansion of macro ‘CLASS_ATTR’
+ static CLASS_ATTR(pixcir_hid_debug, S_IRUGO|S_IWUGO, pixcir_hid_debug_show, pixcir_hid_debug_store);
+        ^
+include/linux/device.h:427:9: warning: (near initialization for ‘class_attr_pixcir_hid_debug.store’) [enabled by default]
+  struct class_attribute class_attr_##_name = __ATTR(_name, _mode, _show, _store)
+         ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:395:8: note: in expansion of macro ‘CLASS_ATTR’
+ static CLASS_ATTR(pixcir_hid_debug, S_IRUGO|S_IWUGO, pixcir_hid_debug_show, pixcir_hid_debug_store);
+        ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c: In function ‘pix_drvattr_debug’:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:403:2: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+  int ret = -1;
+  ^
+In file included from /home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:32:0:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c: At top level:
+include/linux/device.h:269:9: warning: initialization from incompatible pointer type [enabled by default]
+  struct driver_attribute driver_attr_##_name = __ATTR(_name, _mode, _show, _store)
+         ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:475:8: note: in expansion of macro ‘DRIVER_ATTR’
+ static DRIVER_ATTR(pixcir_drv_dbg,S_IRUGO | S_IWUGO,pix_drvattr_show,pix_drvattr_debug);
+        ^
+include/linux/device.h:269:9: warning: (near initialization for ‘driver_attr_pixcir_drv_dbg.show’) [enabled by default]
+  struct driver_attribute driver_attr_##_name = __ATTR(_name, _mode, _show, _store)
+         ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:475:8: note: in expansion of macro ‘DRIVER_ATTR’
+ static DRIVER_ATTR(pixcir_drv_dbg,S_IRUGO | S_IWUGO,pix_drvattr_show,pix_drvattr_debug);
+        ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:477:2: warning: initialization from incompatible pointer type [enabled by default]
+  &driver_attr_pixcir_drv_dbg,
+  ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:477:2: warning: (near initialization for ‘pix_attr[0]’) [enabled by default]
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:481:2: warning: initialization from incompatible pointer type [enabled by default]
+  .attrs = pix_attr,
+  ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:481:2: warning: (near initialization for ‘pix_attrgp.attrs’) [enabled by default]
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:484:2: warning: initialization from incompatible pointer type [enabled by default]
+  &pix_attrgp,
+  ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:484:2: warning: (near initialization for ‘drv_group[0]’) [enabled by default]
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c: In function ‘usbtouch_probe’:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:538:34: warning: assignment from incompatible pointer type [enabled by default]
+   usbtouch->pix_info->msg_handle = pixcir_urbmsg_handle;
+                                  ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c: At top level:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:719:3: warning: initialization from incompatible pointer type [enabled by default]
+   .driver.groups = drv_group,
+   ^
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:719:3: warning: (near initialization for ‘usbtouch_driver.drvwrap.driver.groups’) [enabled by default]
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c: In function ‘usbtouch_probe’:
+/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.c:677:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make[2]: *** [/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0/pixcir_hid_tangoc.o] Error 1
+make[1]: *** [_module_/home/devel/dize_src/5.1inch_pixcir_tangoc_driver_1.0] Error 2
+make: *** [all] Error 2
