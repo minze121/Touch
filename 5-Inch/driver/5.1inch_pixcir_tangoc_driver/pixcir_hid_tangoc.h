@@ -81,7 +81,7 @@
  * pix_swap_direction - Swapped x-axis and y-axis direction if you need it
  */
 static int swap_touchscreen_xy = 0;
-static int swap_direction_xy = 1;
+static int swap_direction_xy = 0;
 static int conv_xy = 0;
 module_param(conv_xy, bool, 0644);
 MODULE_PARM_DESC(conv_xy, "If set X and Y axes are swapped.");
@@ -143,7 +143,7 @@ static unsigned char hid_reset_cmd[32]={0x02,0x00,0x01,0x3a,0x01,0x03,0x00,0x00,
 										 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 
 #define err_bit(err) ( do{ int __bit = 0; while(err&(1<<__bit++)) break; --__bit; }while(0) )
-static int dbg_flag = 1;
+static int dbg_flag = 0;
 #define pix_dbg(fmt...) do {  if(dbg_flag) printk(fmt); }while(0)
 
 					

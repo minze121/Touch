@@ -800,6 +800,8 @@ static struct usb_driver usbtouch_driver = {
 
 static int __init usbtouch_init(void)
 {
+	printk("\nusb 2-1.5: pixcir_hid_version : 1.2\n");
+
 	return usb_register(&usbtouch_driver);
 }
 
